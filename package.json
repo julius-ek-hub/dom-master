@@ -1,6 +1,6 @@
 {
   "name": "dom-master",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "dist/dom-master.esm.js",
   "scripts": {
