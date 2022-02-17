@@ -31,10 +31,9 @@ import { attr, removeAttribute, style, hasAttribute } from './workers/attributes
  */
 
 const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
-    let el = Element_or_selector_or_Tag_or_Window_or_Document;
-    el = create_el(Element_or_selector_or_Tag_or_Window_or_Document);
+    
+    let el = create_el(Element_or_selector_or_Tag_or_Window_or_Document);
     let allEl = oneArrayElements(el);
-
 
     const queryMethods = (collection, siblingsFor, onlyElements) =>{
         collection = [].slice.call(collection);

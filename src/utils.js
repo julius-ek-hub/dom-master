@@ -48,27 +48,29 @@ export const isNode = el => {
 }
 
 
-export const create_el = (tag) => {
-    if(_array(tag, null))
-    return tag.map(t => create_el(t));
+export const create_el = (target) => {
+    if(_array(target, null))
+    return target.map(t => create_el(t));
 
-    if(typeof tag !== 'string' || typeof document === 'undefined') return tag;
-    tag = tag.trim();
+    if(target instanceof NodeList) return [].slice.call(target);
+    if(typeof target !== 'string') return target;
+
+    target = target.trim();
 
     let element = null;
 
-    if(tag.startsWith('<') && tag.endsWith('>')){
+    if(target.startsWith('<') && target.endsWith('>')){
 
-        if(tag.match(/>|</g).length === 2 && tag.length === 3)
-            tag = '<div/>';
+        if(target.match(/>|</g).length === 2 && target.length === 3)
+            target = '<div/>';
         else
-            tag = tag.replaceAll(/<>/g, '<div temporal-element-jql-injected>').replaceAll(/<\/>/g, '</div>').replaceAll(/<\s/g, '<div ')
-        element = toHTML(tag);
+            target = target.replaceAll(/<>/g, '<div temporal-element-jql-injected>').replaceAll(/<\/>/g, '</div>').replaceAll(/<\s/g, '<div ')
+        element = toHTML(target);
     } else{
-        if(tag.match(/>|</)) 
+        if(target.match(/>|</)) 
             throw new Error('Invalid argument for domMaster please read documentation - https:www.247-dev.com/projects/dom-master/how-to-use');
         else 
-            element = [].slice.call(document.querySelectorAll(tag));
+            element = [].slice.call(document.querySelectorAll(target));
     }
 
     return element;
