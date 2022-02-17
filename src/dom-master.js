@@ -875,6 +875,5 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
 
 domMaster.extends = {};
 
-
 export default domMaster;
 

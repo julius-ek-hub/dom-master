@@ -1,6 +1,5 @@
 
 export const _boolean = (val, default_ = true) => typeof val === 'boolean' ? val : default_;
-export const _number = (val, default_ = 0) => typeof val === 'number' ? val : default_;
 export const _object = (val, default_ = {}) => val && typeof val === 'object' ? val : default_;
 export const _array = (val, default_ = []) => Array.isArray(val) ? val : default_;
 export const _string = (val, default_ = '') => typeof val === 'string' ? val : default_;
@@ -36,10 +35,6 @@ export const docEl = el => el.documentElement || el.document.documentElement;
 export const isDocument = el => {
     el = isJQL(el) ? el.plain() : el;
     return el instanceof Document;
-}
-export const isWin = el => {
-    el = isJQL(el) ? el.plain(0) : el;
-    return el === window;
 }
 
 export const isDocOrWin = el => {
