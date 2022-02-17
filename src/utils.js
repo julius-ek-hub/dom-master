@@ -62,10 +62,9 @@ export const create_el = (target) => {
     if(target.startsWith('<') && target.endsWith('>')){
 
         if(target.match(/>|</g).length === 2 && target.length === 3)
-            target = '<div/>';
-        else
-            target = target.replaceAll(/<>/g, '<div temporal-element-jql-injected>').replaceAll(/<\/>/g, '</div>').replaceAll(/<\s/g, '<div ')
+            target = '<div></div>';
         element = toHTML(target);
+
     } else{
         if(target.match(/>|</)) 
             throw new Error('Invalid argument for domMaster please read documentation - https:www.247-dev.com/projects/dom-master/how-to-use');

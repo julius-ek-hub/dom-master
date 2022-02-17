@@ -3,14 +3,14 @@
   "version": "1.0.2",
   "description": "",
   "main": "dist/dom-master.esm.js",
+  "homepage": "https://www.247-dev.com/me/",
+  "author": "Julius Ek (https://www.247-dev.com/me/)",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack"
   },
   "keywords": [],
-  "type": "module",
-  "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "webpack": "^5.69.0",
     "webpack-cli": "^4.9.2"

@@ -31,14 +31,14 @@ import { attr, removeAttribute, style, hasAttribute } from './workers/attributes
  */
 
 const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
-    
+
     let el = create_el(Element_or_selector_or_Tag_or_Window_or_Document);
     let allEl = oneArrayElements(el);
+    allEl = allEl.length === 0 ? [new DocumentFragment()] : allEl;
 
     const queryMethods = (collection, siblingsFor, onlyElements) =>{
         collection = [].slice.call(collection);
         let target = collection.length > 0 ? (siblingsFor ? [siblingsFor.parentElement] : collection[0].parentElement) : allEl[0];
-
         return {
         /**
          * Returns the results of a query. But also a particular result by index n. If you are accessing get

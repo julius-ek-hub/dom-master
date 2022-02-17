@@ -1,12 +1,7 @@
 import { isJQL, _array, isElement, oneArrayElements, _object, toHTML, _string } from "../utils.js";
 
 export const addChild = function(_, el, children){
-    oneArrayElements(children).map(child => {
-        if(isElement(child) && child.hasAttribute('temporal-element-jql-injected'))
-            _(el).addChild(child.children)
-        else
-        toHTML(child).map(e => el.appendChild(e));
-    });
+    oneArrayElements(children).map(child => toHTML(child).map(e => el.appendChild(e)));
     return el;
 }
 

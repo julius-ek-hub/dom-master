@@ -34,6 +34,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
 
     let el = create_el(Element_or_selector_or_Tag_or_Window_or_Document);
     let allEl = oneArrayElements(el);
+    allEl = allEl.length === 0 ? [new DocumentFragment()] : allEl;
 
     const queryMethods = (collection, siblingsFor, onlyElements) =>{
         collection = [].slice.call(collection);
