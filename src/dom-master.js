@@ -202,7 +202,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          */
 
         exist(){
-          return (allEl.length > 0 & allEl.every(el => el && [].slice.call(domMaster(el).getStyle()).length > 0)) ? true: false;
+          return (allEl.length > 0 & allEl.every(el => el && !(el instanceof DocumentFragment) && [].slice.call(domMaster(el).getStyle()).length > 0)) ? true: false;
         },
 
         /**
