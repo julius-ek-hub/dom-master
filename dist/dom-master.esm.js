@@ -202,9 +202,9 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * @see https://www.247-dev.com/projects/dom-master/doc#exists
          */
 
-        exist(){
-          return (allEl.length > 0 & allEl.every(el => el && [].slice.call(domMaster(el).getStyle()).length > 0)) ? true: false;
-        },
+         exist(){
+            return (allEl.length > 0 & allEl.every(el => el && !(el instanceof DocumentFragment) && [].slice.call(domMaster(el).getStyle()).length > 0)) ? true: false;
+          },
 
         /**
          * Returns the first childNode or firstElementChild depending on the value for onlyElement
@@ -688,7 +688,10 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          */
 
         getStyle(prop){
-            let style = getComputedStyle(allEl[0]);
+            let el = allEl[0];
+            if(el instanceof DocumentFragment)
+                return [];
+            let style = getComputedStyle(el);
             if(!prop) return style;
             return style.getPropertyValue(prop);
         },

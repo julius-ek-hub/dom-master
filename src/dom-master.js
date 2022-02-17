@@ -686,8 +686,11 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * @see https://www.247-dev.com/projects/dom-master/doc/getstyle
          */
 
-        getStyle(prop){
-            let style = getComputedStyle(allEl[0]);
+         getStyle(prop){
+            let el = allEl[0];
+            if(el instanceof DocumentFragment)
+                return [];
+            let style = getComputedStyle(el);
             if(!prop) return style;
             return style.getPropertyValue(prop);
         },
