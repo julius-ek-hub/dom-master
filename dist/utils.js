@@ -63,6 +63,8 @@ export const create_el = (target) => {
 
         if(target.match(/>|</g).length === 2 && target.length === 3)
             target = '<div></div>';
+        else 
+        target = target.replaceAll(/<\/>/g, '</div>').replaceAll(/<\s/g, '<div ');
         element = toHTML(target);
     } else{
         if(target.match(/>|</)) 
