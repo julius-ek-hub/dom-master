@@ -41,7 +41,9 @@ export const isDocOrWin = el => {
     el = isJQL(el) ? el.plain(0) : el;
     return el instanceof Document || el === window;
 }
-export const docWinProp = (el, prop) => isDocOrWin(el) ? docEl(el)[prop] : el[prop];
+export const docWinProp = (el, prop) => {
+    return isDocOrWin(el) ? docEl(el)[prop] : (isElement(el) && el[prop] || undefined)
+};
 export const isNode = el => {
     el = isJQL(el) ? el.plain() : [el];
     return el.length > 0 && el.every(e => e instanceof Element || el instanceof Text);

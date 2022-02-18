@@ -1,4 +1,4 @@
-import {str_to_array_of_words as to_arr } from "../utils.js";
+import {str_to_array_of_words as to_arr, isElement } from "../utils.js";
 
 export const attr = (el, details) => {
     if (typeof details === 'string' && details) {
@@ -16,7 +16,11 @@ export const removeAttribute = (el, attrname) => {
     return el;
 }
 
-export const hasAttribute = (el, val) => to_arr(val).every(e => el.hasAttribute(e));
+export const hasAttribute = (el, val) => {
+    if(isElement(el))
+        return to_arr(val).every(e => el.hasAttribute(e));
+    return false;
+}
 
 export const style = (el, details) => {
     if (typeof details === 'string') {

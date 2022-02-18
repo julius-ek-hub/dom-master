@@ -34,12 +34,10 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
 
     let el = create_el(Element_or_selector_or_Tag_or_Window_or_Document);
     let allEl = oneArrayElements(el);
-    allEl = allEl.length === 0 ? [new DocumentFragment()] : allEl;
 
     const queryMethods = (collection, siblingsFor, onlyElements) =>{
         collection = [].slice.call(collection);
         let target = collection.length > 0 ? (siblingsFor ? [siblingsFor.parentElement] : collection[0].parentElement) : allEl[0];
-
         return {
         /**
          * Returns the results of a query. But also a particular result by index n. If you are accessing get
@@ -143,18 +141,24 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          */
 
         removeClass(className){
-            
             return domMaster(allEl.map(el => removeClass(el, className)));
         },
 
         /**
-         * Returns classname if value is not provided else overrides the existing class with value
+         * Returns classname if value is not provided else overrides the existing class with value provided 
+         * and return the the updated store
          * @param {String | void} value 
          * @see https://www.247-dev.com/projects/dom-master/doc#classname
          */
 
         className(value){
-            return className(allEl[0], value);
+            let el = allEl[0];
+            if(!isElement(el)) return domMaster(allEl);
+
+            if (!(typeof value === 'string')) return el.className;
+
+            el.className = value;
+            return domMaster(allEl);
         },
 
         /**
@@ -175,7 +179,9 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          */
 
         isFirstChild(onlyElement = true){
-            return allEl[0].parentElement[onlyElement ? 'firstElementChild' : 'firstChild'] == allEl[0];
+            if(isElement(allEl[0]))
+                return allEl[0].parentElement[onlyElement ? 'firstElementChild' : 'firstChild'] == allEl[0];
+            return false;
         },
 
         /**
@@ -185,7 +191,9 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          */
 
         isLastChild(onlyElement = true){
-            return allEl[0].parentElement[onlyElement ? 'lastElementChild' : 'lastChild'] == allEl[0];
+            if(isElement(allEl[0]))
+                return allEl[0].parentElement[onlyElement ? 'lastElementChild' : 'lastChild'] == allEl[0];
+            return false;
         },
 
         /**
@@ -194,7 +202,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          */
 
         index(){
-            return isElement(allEl[0]) ? domMaster(allEl[0]).siblings().get().plain().indexOf(allEl[0]) : null;
+            return isElement(allEl[0]) ? domMaster(allEl[0]).siblings().get().plain().indexOf(allEl[0]) : -1;
         },
 
         /**
@@ -202,9 +210,9 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * @see https://www.247-dev.com/projects/dom-master/doc#exists
          */
 
-         exist(){
-            return (allEl.length > 0 & allEl.every(el => el && !(el instanceof DocumentFragment) && [].slice.call(domMaster(el).getStyle()).length > 0)) ? true: false;
-          },
+        exist(){
+          return (allEl.length > 0 & allEl.every(el => el && [].slice.call(domMaster(el).getStyle()).length > 0)) ? true: false;
+        },
 
         /**
          * Returns the first childNode or firstElementChild depending on the value for onlyElement
@@ -213,7 +221,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          */
 
         firstChild(onlyElement = true){
-            return domMaster(onlyElement ? allEl[0].firstElementChild : allEl[0].firstChild);
+            return domMaster(onlyElement ? (allEl[0]?.firstElementChild || []) : (allEl[0]?.firstChild || []));
         },
 
         /**
@@ -223,7 +231,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          */
 
         lastChild(onlyElement = true){
-            return domMaster(onlyElement ? allEl[0].lastElementChild : allEl[0].lastChild)
+            return domMaster(onlyElement ? (allEl[0]?.lastElementChild || []) : (allEl[0]?.lastChild || []));
         },
 
         /**
@@ -233,7 +241,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          */
 
         nextSibling(onlyElement = true){
-            return domMaster(onlyElement ? allEl[0].nextElementSibling : allEl[0].nextSibling);
+            return domMaster(onlyElement ? (allEl[0]?.nextElementSibling || []) : (allEl[0]?.nextSibling || []));
         },
 
         /**
@@ -243,7 +251,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          */
 
         previousSibling(onlyElement = true){
-            return domMaster(onlyElement ? allEl[0].previousElementSibling : allEl[0].previousSibling)
+            return domMaster(onlyElement ? (allEl[0]?.previousElementSibling || []) : (allEl[0]?.previousSibling || []))
         },
 
         /**
@@ -254,8 +262,8 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
 
         id(id){
             if(typeof id === 'string' && id)
-               return domMaster(allEl[0]).attr({ id });
-            return allEl[0].id;
+               return domMaster(allEl[0] || []).attr({ id });
+            return allEl[0]?.id;
         },
 
         /**
@@ -266,7 +274,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          */
 
         addChild(content){
-           return domMaster(addChild(domMaster, allEl[0], content));
+           return domMaster(addChild(allEl[0], content));
         },
 
         /**
@@ -304,7 +312,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
 
         attr(keyValuePairs){
             let att = allEl.map(el => attr(el, keyValuePairs));
-            return att.every(at => _obj(at, null)) ? domMaster(att) : att[0];
+            return typeof keyValuePairs === 'string' ? att[0] : domMaster(att);
         },
 
         /**
@@ -486,7 +494,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
                 allEl.map(el => el.required = value);
                 return domMaster(allEl);
              }
-             return allEl[0].required;
+             return allEl[0]?.required || false;
         },
 
         /**
@@ -499,11 +507,11 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          */
 
         selected(value){
-            if(typeof value === 'boolean'){
+            if(typeof value === 'boolean' && isElement(allEl[0])){
                 allEl[0].selected = value;
                 return domMaster(allEl);
              }
-             return allEl[0].selected;
+             return allEl[0]?.selected || false;
         },
 
         /**
@@ -515,7 +523,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          */
 
         select(){
-            allEl[0].select();
+            allEl[0]?.select();
             return domMaster(allEl);
         },
 
@@ -527,7 +535,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          */
 
         focus(){
-            allEl[0].focus();
+            allEl[0]?.focus();
             return domMaster(allEl);
         },
 
@@ -552,11 +560,11 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          */
 
         checked(value){
-           if(typeof value === 'boolean'){
+           if(typeof value === 'boolean' && isElement(allEl[0])){
               allEl[0].checked = true;
               return domMaster(allEl);
            }
-           return allEl[0].checked;
+           return allEl[0]?.checked || false;
         },
 
         /**
@@ -568,7 +576,8 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          */
 
         files(){
-            if(domMaster(allEl).attr('type') !== 'file') return null;
+            if(!isElement(allEl[0])) return [];
+            if(domMaster(allEl[0]).attr('type') !== 'file') return [];
             return [].slice.call(allEl[0].files) 
         },
 
@@ -642,12 +651,10 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
 
         value(v){
             if (_primitive(v, null)) {
-                allEl.map(el => {
-                    el.value = v;
-                });
+                allEl.map(el => el.value = v);
                 return domMaster(allEl);
             } else
-                return allEl[0].value;
+                return allEl[0]?.value;
         },
 
         /**
@@ -661,8 +668,12 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
 
 
         siblings(onlyElements = true){
-            let parent = allEl[0].parentElement;
-            return queryMethods(onlyElements ? parent.children : parent.childNodes, allEl[0], onlyElements)
+            let results = [];
+            if(isElement(allEl[0])){
+              let parent = allEl[0].parentElement;
+              results = onlyElements ? parent.children : parent.childNodes
+            }
+            return queryMethods(results, allEl[0], onlyElements);
         },
 
         /**
@@ -687,10 +698,10 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * @see https://www.247-dev.com/projects/dom-master/doc/getstyle
          */
 
-        getStyle(prop){
+         getStyle(prop){
             let el = allEl[0];
-            if(el instanceof DocumentFragment)
-                return [];
+            if(!isElement(el)) return [];
+
             let style = getComputedStyle(el);
             if(!prop) return style;
             return style.getPropertyValue(prop);
@@ -706,7 +717,11 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          */
 
         children(onlyElements = true){
-            return queryMethods(onlyElements ? allEl[0].children : allEl[0].childNodes, null, onlyElements)
+            let results = [];
+            if(isElement(allEl[0]))
+              results = onlyElements ? allEl[0].children : allEl[0].childNodes
+
+            return queryMethods(results, null, onlyElements)
 
         },
 
@@ -734,6 +749,8 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          */
 
         isVisible(offsetX = 0, offsetY = 0){
+            if(!isElement(allEl[0])) return false;
+
             let bc = allEl[0].getBoundingClientRect();
             return (bc.bottom > 0 && bc.top < (innerHeight + offsetY)) && (bc.right > 0 && bc.left < (innerWidth + offsetX));
         },
@@ -747,7 +764,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          */
 
         query(selector){
-            return queryMethods([].slice.call(allEl[0].querySelectorAll(selector)));
+            return queryMethods([].slice.call(allEl[0]?.querySelectorAll(selector) || []));
         },
 
         /**
@@ -759,7 +776,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          */
 
         find(selector) {
-            return domMaster(allEl[0].querySelector(selector));
+            return domMaster(allEl[0]?.querySelector(selector) || []);
         },
 
         /**
@@ -768,7 +785,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
 
         height(){
            if(isDocOrWin(allEl[0])) return innerHeight;
-              return allEl[0].getBoundingClientRect().height;
+              return allEl[0]?.getBoundingClientRect().height || 0;
         },
 
         /**
@@ -777,55 +794,55 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
         
         width(){
             if(isDocOrWin(allEl[0])) return innerWidth;
-              return allEl[0].getBoundingClientRect().width
+              return allEl[0]?.getBoundingClientRect().width || 0
         },
         offsetHeight(){
-            return docWinProp(allEl[0], 'offsetHeight');
+            return docWinProp(allEl[0], 'offsetHeight') || 0;
         },
         offsetWidth(){
-            return docWinProp(allEl[0], 'offsetWidth');
+            return docWinProp(allEl[0], 'offsetWidth') || 0;
         },
         offsetTop(){
-            return docWinProp(allEl[0], 'offsetTop');
+            return docWinProp(allEl[0], 'offsetTop') || 0;
         },
         offsetLeft(){
-            return docWinProp(allEl[0], 'offsetLeft');
+            return docWinProp(allEl[0], 'offsetLeft') || 0;
         },
         clientHeight(){
-            return docWinProp(allEl[0], 'clientHeight');
+            return docWinProp(allEl[0], 'clientHeight') || 0;
         },
         clientWidth(){
-            return docWinProp(allEl[0], 'clientWidth');
+            return docWinProp(allEl[0], 'clientWidth') || 0;
         },
         scrollHeight() {
-            return docWinProp(allEl[0], 'scrollHeight');
+            return docWinProp(allEl[0], 'scrollHeight') || 0;
         },
         scrollWidth(){
-            return docWinProp(allEl[0], 'scrollWidth');
+            return docWinProp(allEl[0], 'scrollWidth') || 0;
         },
         scrollLeft(){
-            return docWinProp(allEl[0], 'scrollLeft');
+            return docWinProp(allEl[0], 'scrollLeft') || 0;
         },
         scrollTop(){
-            return docWinProp(allEl[0], 'scrollTop');
+            return docWinProp(allEl[0], 'scrollTop') || 0;
         },
         scrollIntoView(...args){
-            return  isDocOrWin(allEl[0]) ? docEl(allEl[0]).scrollIntoView(...args) : allEl[0].scrollIntoView(...args);
+            return  isDocOrWin(allEl[0]) ? docEl(allEl[0]).scrollIntoView(...args) : allEl[0]?.scrollIntoView(...args);
         },
         scrollTo(...args){
-           return  isDocOrWin(allEl[0]) ? window.scrollTo(...args) : allEl[0].scrollTo(...args);
+           return  isDocOrWin(allEl[0]) ? window.scrollTo(...args) : allEl[0]?.scrollTo(...args);
         },
         scrollY(){
-            return allEl[0].scrollY;
+            return allEl[0]?.scrollY;
         },
         scrollX() {
-            return allEl[0].scrollX;
+            return allEl[0]?.scrollX;
         },
         tagName(){
-            return allEl[0].tagName
+            return allEl[0]?.tagName
         },
         getBoundingClientRect(...args){
-            return isDocOrWin(allEl[0]) ? docEl(allEl[0]).getBoundingClientRect(...args) : allEl[0].getBoundingClientRect(...args);
+            return isDocOrWin(allEl[0]) ? docEl(allEl[0]).getBoundingClientRect(...args) : (allEl[0]?.getBoundingClientRect(...args) || {});
         },
     
         /**
@@ -877,7 +894,6 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
 }
 
 domMaster.extends = {};
-
 
 export default domMaster;
 

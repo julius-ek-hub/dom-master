@@ -1,1 +1,1 @@
-module.exports = require('./dom-master').default
+module.exports = require('../dist/dom-master.esm').default
