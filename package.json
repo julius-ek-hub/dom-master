@@ -1,6 +1,6 @@
 {
   "name": "dom-master",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "DOM master is a library for manipulating the DOM, get 1 line of code do what 15 lines of vanilla js will do. 70+ methods to make your web developement life better.",
   "main": "dist/dom-master.esm",
   "homepage": "https://www.247-dev.com/dom-master",
@@ -9,7 +9,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack"
   },
-  "keywords": ["jQuery", "DOM", "libraries", "html"],
+  "keywords": [
+    "jQuery",
+    "DOM",
+    "libraries",
+    "html"
+  ],
   "license": "MIT",
   "devDependencies": {
     "webpack": "^5.69.0",
