@@ -69,8 +69,8 @@ export const create_el = (target) => {
             target = target.replaceAll(/<\/>/g, '</div>').replaceAll(/<\s/g, '<div ');
         element = toHTML(target);
     } else{
-        if(target.match(/>|</)) 
-            throw new Error('Invalid argument for domMaster please read documentation - https:www.247-dev.com/projects/dom-master/how-to-use');
+        if(target.startsWith('>') || target.split('').includes('<')) 
+           throw new Error('Invalid argument for domMaster please read documentation - https:www.247-dev.com/projects/dom-master/how-to-use');
         else 
             element = [].slice.call(document.querySelectorAll(target));
     }

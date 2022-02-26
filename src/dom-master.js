@@ -19,15 +19,17 @@ import { attr, removeAttribute, style, hasAttribute } from './workers/attributes
 
 /**
  * ----------------------------------------------------------------
- * DOM Master v1.0.0
+ * DOM Master v1
  * ----------------------------------------------------------------
  * Write Less, do more!!!
  * @param {String | Element | Window | Document}  Element_or_selector_or_Tag_or_Window_or_Document 1) The tag for the new element you
- * you want to create in the form '&lt;tagName /&gt;'. You can add attributes same way as in HTML but must be a string entirely 
- * like '&lt;tagName style="background:red;color:pink" id="idname" /&gt;'.
- * 2) Elements created or picked from the DOM using JavaScript.
+ * you want to create.
+ * 2) selector or Element.
  * 3) The window or document object for just a few methods
- * @see https://www.247-dev.com/projects/dom-master/doc#howtouse
+ * @example $$('<button>Click me</button>').appendTo('body');
+ * $$('#some-id').drop();
+ * $$('.btn').click(console.log);
+ * @see https://www.247-dev.com/projects/dom-master/doc/how-to-use
  */
 
 const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
@@ -44,7 +46,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * from siblings, that is el.siblings().get(n), n will be considered as sibling. -n for siblings behind
          * while +n for siblings infront.
          * @param {Number} n target result index
-         * @see https://www.247-dev.com/projects/dom-master/doc/get
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-1/#get
          */  
             get(n) {
                 let result;
@@ -66,7 +68,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
              * Filters the collection of element. Accepts a function, string and number, please 
              * the link attached
              * @param {Function | Number | String} selector What to exclude
-             * @see https://www.247-dev.com/projects/dom-master/doc/exclude
+             * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-1/#except
              */
 
             except(selector){
@@ -115,7 +117,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * Adds class(es) to element
          * @param {String | String[]} className className or array of classNames to be added. Can also be a string of 
          * whitespace separated classNames
-         * @see https://www.247-dev.com/projects/dom-master/doc#addclass
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-4/#addClass
          */
 
         addClass(className){
@@ -125,7 +127,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
         /**
          * Adds a class if absent or removes it if present
          * @param {String} className
-         * @see https://www.247-dev.com/projects/dom-master/doc#toggleclass
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-4/#toggleClass
          */
 
         toggleClass(className){
@@ -137,7 +139,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * Removes class(es) from an element
          * @param {String} className className or array of classNames to be added. Can also be a string of 
          * whitespace separated classNames
-         * @see https://www.247-dev.com/projects/dom-master/doc#removeclass
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-4#removeClass
          */
 
         removeClass(className){
@@ -148,7 +150,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * Returns classname if value is not provided else overrides the existing class with value provided 
          * and return the the updated store
          * @param {String | void} value 
-         * @see https://www.247-dev.com/projects/dom-master/doc#classname
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-4#className
          */
 
         className(value){
@@ -165,7 +167,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * Returns true if the className(s) are all present in the element else false
          *  @param {String | String[]} className className or array of classNames to be added. Can also be a string of 
          * whitespace separated classNames
-         * @see https://www.247-dev.com/projects/dom-master/doc#hasclass
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-4#hasClass
          */
 
         hasClass(className){
@@ -175,7 +177,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
         /**
          * Tells if the node is the first childNode or firstElementChild depending on the value for onlyElement
          * @param {Boolean} onlyElement By default, onlyElement is true, which would use Elements only. Else would use all Nodes
-         * @see https://www.247-dev.com/projects/dom-master/doc#isfirstchild
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-2#isFirstChild
          */
 
         isFirstChild(onlyElement = true){
@@ -187,7 +189,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
         /**
          * Tells if the node is the last childNode or lastElementChild depending on the value for onlyElement
          * @param {Boolean} onlyElement By default, onlyElement is true, which would use Elements only. Else would use all Nodes
-         * @see https://www.247-dev.com/projects/dom-master/doc#islastchild
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-2#isLastChild
          */
 
         isLastChild(onlyElement = true){
@@ -198,7 +200,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
 
         /**
          * Returns the index of the first element in the store
-         * @see https://www.247-dev.com/projects/dom-master/doc#index
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-2#index
          */
 
         index(){
@@ -207,17 +209,17 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
 
         /**
          * Returns true if all elements in the store exists in the DOM else false
-         * @see https://www.247-dev.com/projects/dom-master/doc#exists
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-2#exists
          */
 
-        exist(){
+        exists(){
           return (allEl.length > 0 & allEl.every(el => el && [].slice.call(domMaster(el).getStyle()).length > 0)) ? true: false;
         },
 
         /**
          * Returns the first childNode or firstElementChild depending on the value for onlyElement
          * @param {Boolean} onlyElement By default, onlyElement is true, which would use Elements only. Else would use all Nodes
-         * @see https://www.247-dev.com/projects/dom-master/doc#firstchild
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-2#firstChild
          */
 
         firstChild(onlyElement = true){
@@ -227,7 +229,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
         /**
          * Returns the last childNode or lastElementChild depending on the value for onlyElement
          * @param {Boolean} onlyElement By default, onlyElement is true, which would use Elements only. Else would use all Nodes
-         * @see https://www.247-dev.com/projects/dom-master/doc#lastchild
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-2#lastChild
          */
 
         lastChild(onlyElement = true){
@@ -237,7 +239,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
         /**
          * Returns the next adjecent childNode or Element depending on the value for onlyElement
          * @param {Boolean} onlyElement By default, onlyElement is true, which would use Elements only. Else would use all Nodes
-         * @see https://www.247-dev.com/projects/dom-master/doc#nextsibling
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-2#nextSibling
          */
 
         nextSibling(onlyElement = true){
@@ -247,7 +249,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
         /**
          * Returns the previous adjecent childNode or Element depending on the value for onlyElement
          * @param {Boolean} onlyElement By default, onlyElement is true, which would use Elements only. Else would use all Nodes
-         * @see https://www.247-dev.com/projects/dom-master/doc#previoussibling
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-2#previousSibling
          */
 
         previousSibling(onlyElement = true){
@@ -257,7 +259,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
         /**
          * Returns the id of the Element if id parament is void else would override the existing id with the id supplied
          * @param {Sring | void} id 
-         * @see https://www.247-dev.com/projects/dom-master/doc#id
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-3#id
          */
 
         id(id){
@@ -270,7 +272,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * For appending new Nodes
          * @param {*} content Pass a single child content 
          * or an array of child contents
-         * @see https://www.247-dev.com/projects/dom-master/doc#addchild
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-3#addChild
          */
 
         addChild(content){
@@ -283,11 +285,11 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * or an array of child contents
          * @param {Element} existing A child element already existing in the DOM before which the new content 
          * should be added.
-         * @see https://www.247-dev.com/projects/dom-master/doc#insertbefore
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-3#insertBefore
          */
 
         insertBefore(newContent, existing) {
-           return domMaster(insertBefore(domMaster, allEl[0], newContent, existing));
+           return domMaster(insertBefore(domMaster, allEl[0], newContent, domMaster(existing)));
         },
 
         /**
@@ -296,18 +298,18 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * or an array of child contents
          * @param {Element} existing A child element already existing in the DOM after which the new content 
          * should be added.
-         * @see https://www.247-dev.com/projects/dom-master/doc#insertafter
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-3#insertAfter
          */
 
         insertAfter(newContent, existing){
-           return domMaster(insertAfter(domMaster, allEl[0], newContent, existing));
+           return domMaster(insertAfter(domMaster, allEl[0], newContent, domMaster(existing)));
         },
 
         /**
          * If a string is provided, assumes it's attribute name and returns the value. Else if a valid object 
          * is provided, new attibutes are creted from it and the elemnt returned as JQL
          * @param {String | {}} keyValuePairs 
-         * @see https://www.247-dev.com/projects/dom-master/doc#attr
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-4#attr
          */
 
         attr(keyValuePairs){
@@ -317,8 +319,9 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
 
         /**
          * Removes attributes from an element
-          @param {String | String[]} attrName attribute or array of attributes to be removed. Can also be a string of 
+         * @param {String | String[]} attrName attribute or array of attributes to be removed. Can also be a string of 
          * whitespace separated attributes
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-4#removeAttribute
          */
 
         removeAttribute(attrName){
@@ -327,8 +330,9 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
         
         /**
          * Returns true if attibutes are all present in an element else false.
-          @param {String | String[]} attrName attribute or array of attributes to be checked. Can also be a string of 
+         * @param {String | String[]} attrName attribute or array of attributes to be checked. Can also be a string of 
          * whitespace separated attributes
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-4#hasAttribute
          */
 
         hasAttribute(attrName){
@@ -339,6 +343,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          Adds or replace element styles
          * @param {String | {}} keyValuePairs If string is provided, would override the existing style with the provided one which should be in css format.
          * Else if valid object is provided, new styles are going to be added to the element from the object.
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-4#style
          */
 
         style(keyValuePairs){
@@ -346,7 +351,8 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
         },
 
         /**
-         * Remove an element from the DOM
+         * Removes an element from the DOM
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-1#drop
          */
 
         drop(){
@@ -354,7 +360,8 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
         },
         
         /**
-         * Remove all childNodes of an element from the DOM
+         * Removes all childNodes of an element from the DOM
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-3#truncate
          */
 
         truncate(){
@@ -366,6 +373,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * Truncates and element and add new contents
          * @param {*} newContent Pass a single child content 
          * or an array of new contents
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-3#refill
          */
 
         refill(newContent){
@@ -375,6 +383,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
         /**
          * Disables or enables an element depending on parameter
          * @param {Boolean} disable if true, will disable the element. Else, will enable it. Value is true by default
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-5#disable
          */
 
         disable(disable){
@@ -386,6 +395,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * Clones an element
          * @param {Boolean} deep if true, will clone the element including it's childNodes else will clone only the 
          * element. true by default.
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-1#clone
          */
 
         clone(deep){
@@ -394,18 +404,19 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
 
         /**
          * Will click or listen for click event depending on the parameter
-         * @param {Function | void} fn if function is set, an eventListener will be added with the function as callback 
-         * else a click will be performed on the element.
-         * @returns 
+         * @param {Function | undefined} fn if function is set, an eventListener will be added with the function as callback 
+         * overriding any click event handler that exists. If no function is passed, the element will be clicked.
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-5#click
          */
 
         click(fn){
-            allEl.map(el => typeof fn === 'function' ? domMaster(el).on('click', fn) : el.click())
+            allEl.map(el => typeof fn === 'function' ? el.onclick = fn : el.click())
             return domMaster(allEl);
         },
 
         /**
          * Usefull for form element only, to clear all fields.
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-5#reset
          */
 
         reset(){
@@ -420,7 +431,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * @param {String} event
          * @param {Function} callback
          * @param {Boolean | {}} useCapture
-         * @see https://www.247-dev.com/projects/dom-master/doc#on
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-6#on
          */
 
         on(event, callback, useCapture){
@@ -434,7 +445,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * @param {String} event
          * @param {Function} callback
          * @param {Boolean | {}} useCapture
-         * @see https://www.247-dev.com/projects/dom-master/doc#_on
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-6#_on
          */
 
         _on(event, callback, useCapture){
@@ -447,7 +458,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * to override, the call truncate first el.truncate().html(new)
          * ----------------------------------------------------------------
          * @param {*} value Supply this value to set innerHTML
-         * @see https://www.247-dev.com/projects/dom-master/doc/html
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-3#html
          */
 
         html(value){
@@ -460,7 +471,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * to override, the call truncate first el.truncate().text(new)
          * ----------------------------------------------------------------
          * @param {*} value Supply this value to set innerText
-         * @see https://www.247-dev.com/projects/dom-master/doc/text
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-3#text
          */
 
         text(value){
@@ -472,7 +483,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * Hides or shows an element depending on the parameter
          * ----------------------------------------------------------------
          * @param {Boolean} bool if false, will show the element else will hide it. true by default
-         * @see https://www.247-dev.com/projects/dom-master/doc/hide
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-5#hide
          */
 
         hide(bool){
@@ -486,7 +497,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * or not depending on parameter
          * ----------------------------------------------------------------
          * @param {Boolean} value if true, will make it required. true by default
-         * @see https://www.247-dev.com/projects/dom-master/doc/required
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-5#required
          */
 
         required(value){
@@ -503,7 +514,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * or not depending on parameter
          * ----------------------------------------------------------------
          * @param {Boolean} value if true, will maark it selected. false by default
-         * @see https://www.247-dev.com/projects/dom-master/doc/selected
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-5#selected
          */
 
         selected(value){
@@ -519,7 +530,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * Selects all the texts in a textarea or an input element that 
          * contains texts
          * ----------------------------------------------------------------
-         * @see https://www.247-dev.com/projects/dom-master/doc/select
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-5#select
          */
 
         select(){
@@ -529,9 +540,9 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
 
         /**
          * ----------------------------------------------------------------
-         * focuses an element, best for inputs and textareas
+         * Focuses an element, best for inputs and textareas
          * ----------------------------------------------------------------
-         * @see https://www.247-dev.com/projects/dom-master/doc/focus
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-5#focus
          */
 
         focus(){
@@ -543,7 +554,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * ----------------------------------------------------------------
          * Blurs or unfocus an element
          * ----------------------------------------------------------------
-         * @see https://www.247-dev.com/projects/dom-master/doc/blur
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-5#blur
          */
 
         blur(){
@@ -556,12 +567,12 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * Checks a checkbox element or not. Can also Return whether it is 
          * checked or not depending on parameter
          * ----------------------------------------------------------------
-         * @see https://www.247-dev.com/projects/dom-master/doc/checked
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-5#checked
          */
 
         checked(value){
            if(typeof value === 'boolean' && isElement(allEl[0])){
-              allEl[0].checked = true;
+              allEl[0].checked = value;
               return domMaster(allEl);
            }
            return allEl[0]?.checked || false;
@@ -572,7 +583,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * Returns all slected files from an input element with type 'file'.
          * Returns the files in array.
          * ----------------------------------------------------------------
-         * @see https://www.247-dev.com/projects/dom-master/doc/files
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-3#files
          */
 
         files(){
@@ -585,7 +596,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * ----------------------------------------------------------------
          * Submits a form
          * ----------------------------------------------------------------
-         * @see https://www.247-dev.com/projects/dom-master/doc/submit
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-5#submit
          */
 
         submit(){
@@ -597,7 +608,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * Plays a media element
          * ----------------------------------------------------------------
          * @returns {Promise}
-         * @see https://www.247-dev.com/projects/dom-master/doc/play
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-5#play
          */
 
         play(){
@@ -608,37 +619,36 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * ----------------------------------------------------------------
          * Pauses a media element
          * ----------------------------------------------------------------
-         * @see https://www.247-dev.com/projects/dom-master/doc/pause
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-5#pause
          */
 
         pause(){
             allEl.map(el => el.pause())
             return domMaster(allEl);
-
         },
 
         /**
          * ----------------------------------------------------------------
          * Adds the current element to the end of another
          * ----------------------------------------------------------------
-         * @param {Element} parent The receiving parent
-         * @see https://www.247-dev.com/projects/dom-master/doc/appendto
+         * @param {Element | String} parent The receiving parent, can be a selector or Element 
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-3#appendTo
          */
 
         appendTo(parent){
-            return domMaster(allEl.map(el => appendTo(el, parent)));
+            return domMaster(allEl.map(el => appendTo(el, domMaster(parent))));
         },
 
         /**
          * ----------------------------------------------------------------
          * Adds the current element to the beginning of another
          * ----------------------------------------------------------------
-         * @param {Element} parent The receiving parent
-         * @see https://www.247-dev.com/projects/dom-master/doc/prependto
+         * @param {Element | String} parent The receiving parent, can be a selector or Element 
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-3#prependTo
          */
         
         prependTo(parent){
-            return domMaster(allEl.reverse().map(el => prependTo(domMaster, el, parent)));
+            return domMaster(allEl.reverse().map(el => prependTo(domMaster, el, domMaster(parent))));
         },
 
         /**
@@ -646,7 +656,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * Sets or return the value of a form element
          * ----------------------------------------------------------------
          * @param {*} v The new value if set
-         * @see https://www.247-dev.com/projects/dom-master/doc/value
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-3#value
          */
 
         value(v){
@@ -663,7 +673,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * ----------------------------------------------------------------
          * @param {Boolean} onlyElements If set to true, will get only Elements else 
          * will get every Sibling including texts, comments etc.
-         * @see https://www.247-dev.com/projects/dom-master/doc/siblings
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-2#siblings
          */
 
 
@@ -682,7 +692,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * ----------------------------------------------------------------
          * @param {Number} n which parent above the tree should be targeted? 0 = parentElement,
          * 1 = parentElement.parentElement, 2 = parentElement.parentElement.parentElement. etc
-         * @see https://www.247-dev.com/projects/dom-master/doc/parent
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-2#parent
          */
 
         parent(n){
@@ -695,7 +705,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * ----------------------------------------------------------------
          * @param {String} prop This would be the property name. If set, will return its value else, 
          * will return the entire style object.
-         * @see https://www.247-dev.com/projects/dom-master/doc/getstyle
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-4#getStyle
          */
 
          getStyle(prop){
@@ -713,7 +723,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * ----------------------------------------------------------------
          * @param {Boolean} onlyElements If set to true, will get only Elements else 
          * will get every childNode including texts, comments etc.
-         * @see https://www.247-dev.com/projects/dom-master/doc/children
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-2#children
          */
 
         children(onlyElements = true){
@@ -732,7 +742,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * @param {Number} index index of the node
          * @param {Boolean} onlyElements If set to true, will verify only amongs Elements else 
          * will check every childNode including texts, comments etc.
-         * @see https://www.247-dev.com/projects/dom-master/doc/child
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-2#child
          */
 
         child (index = 0, onlyElement = true){
@@ -745,7 +755,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * ----------------------------------------------------------------
          * @param {Number} offsetX Optional x value to ignore during calculation.
          * @param {Number} offsetY Optional y value to ignore during calculation.
-         * @see https://www.247-dev.com/projects/dom-master/doc/isvisible
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-6#isVisible
          */
 
         isVisible(offsetX = 0, offsetY = 0){
@@ -760,7 +770,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * Gets all the decendants of the element that meet a particular criteria
          * ----------------------------------------------------------------
          * @param {String} selector should be querySelectorAll argument
-         * @see https://www.247-dev.com/projects/dom-master/doc/query
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-1#query
          */
 
         query(selector){
@@ -772,7 +782,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * Gets the first decendants of the element that meet a particular criteria
          * ----------------------------------------------------------------
          * @param {String} selector should be querySelector argument
-         * @see https://www.247-dev.com/projects/dom-master/doc/find
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-1#find
          */
 
         find(selector) {
@@ -781,6 +791,8 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
 
         /**
          * Returns the exact height in pixels of the element including scrollbar height;
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-7
+         * @returns {Number}
          */
 
         height(){
@@ -790,57 +802,156 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
 
         /**
          * Returns the exact width in pixels of the element including scrollbar width;
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-7
+         * @returns {Number}
          */
         
         width(){
             if(isDocOrWin(allEl[0])) return innerWidth;
               return allEl[0]?.getBoundingClientRect().width || 0
         },
+
+        /**
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-7
+         * @returns {Number}
+         */
+
         offsetHeight(){
             return docWinProp(allEl[0], 'offsetHeight') || 0;
         },
+
+        /**
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-7
+         * @returns {Number}
+         */
+
         offsetWidth(){
             return docWinProp(allEl[0], 'offsetWidth') || 0;
         },
+
+        /**
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-7
+         * @returns {Number}
+         */
+
         offsetTop(){
             return docWinProp(allEl[0], 'offsetTop') || 0;
         },
+
+        /**
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-7
+         * @returns {Number}
+         */
+
         offsetLeft(){
             return docWinProp(allEl[0], 'offsetLeft') || 0;
         },
+
+        /**
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-7
+         * @returns {Number}
+         */
+
         clientHeight(){
             return docWinProp(allEl[0], 'clientHeight') || 0;
         },
+
+        /**
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-7
+         * @returns {Number}
+         */
+
         clientWidth(){
             return docWinProp(allEl[0], 'clientWidth') || 0;
         },
+
+        /**
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-7
+         * @returns {Number}
+         */
+
         scrollHeight() {
             return docWinProp(allEl[0], 'scrollHeight') || 0;
         },
+
+        /**
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-7
+         * @returns {Number}
+         */
+
         scrollWidth(){
             return docWinProp(allEl[0], 'scrollWidth') || 0;
         },
+
+        /**
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-7
+         * @returns {Number}
+         */
         scrollLeft(){
             return docWinProp(allEl[0], 'scrollLeft') || 0;
         },
+
+        /**
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-7
+         * @returns {Number | undefined}
+         */
+
         scrollTop(){
             return docWinProp(allEl[0], 'scrollTop') || 0;
         },
+
+        /**
+         * @param {{}} args
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-7
+         * @returns {undefined}
+         */
+
         scrollIntoView(...args){
             return  isDocOrWin(allEl[0]) ? docEl(allEl[0]).scrollIntoView(...args) : allEl[0]?.scrollIntoView(...args);
         },
+
+        /**
+         * @param {{}} args
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-7
+         * @returns {Number}
+         */
+
         scrollTo(...args){
            return  isDocOrWin(allEl[0]) ? window.scrollTo(...args) : allEl[0]?.scrollTo(...args);
         },
+
+        /**
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-7
+         * @returns {Number}
+         */
+
         scrollY(){
             return allEl[0]?.scrollY;
         },
+
+        /**
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-7
+         * @returns {Number}
+         */
+
         scrollX() {
             return allEl[0]?.scrollX;
         },
+
+        /**
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-2#tagName
+         * @returns {Number}
+         */
+
         tagName(){
             return allEl[0]?.tagName
         },
+
+        /**
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-7
+         * @returns {Number}
+         */
+
         getBoundingClientRect(...args){
             return isDocOrWin(allEl[0]) ? docEl(allEl[0]).getBoundingClientRect(...args) : (allEl[0]?.getBoundingClientRect(...args) || {});
         },
@@ -851,6 +962,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * @param {Number} n the position of the element you want to retrieve as HTMLElement. It is adviced 
          * to call plain without any parameter and then use array methods to handle it.
          * @returns {[HTMLElement]}
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-1#plain
          */
 
         plain(n){
@@ -861,7 +973,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * Filters the collection of element. Accepts a function, string and number, please 
          * the link attached
          * @param {Function | String | Number} selector What to exclude
-         * @see https://www.247-dev.com/projects/dom-master/doc/exclude
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-1#except
          */
 
         except(selector){
@@ -874,7 +986,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * the link attached
          * @param {Number} n The index of the element to work with, if not provided, the entire elements 
          * are returned untouched
-         * @see https://www.247-dev.com/projects/dom-master/doc/get
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-1#get
          */  
 
         get(n){
@@ -882,8 +994,9 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
         },
 
         /**
-         * runs a function for each of the elements you are working with. Use it as Array.forEach
+         * Runs a function for each of the elements you are working with. Use it as Array.forEach
          * @param {Function} fn callback
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-1#forEach
          */
 
         forEach(fn){
@@ -896,4 +1009,3 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
 domMaster.extends = {};
 
 export default domMaster;
-
