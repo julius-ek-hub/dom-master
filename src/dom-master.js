@@ -584,11 +584,12 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * Returns the files in array.
          * ----------------------------------------------------------------
          * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-3#files
+         * @returns {File[] | undefined}
          */
 
         files(){
             if(!isElement(allEl[0])) return [];
-            if(domMaster(allEl[0]).attr('type') !== 'file') return [];
+            if(domMaster(allEl[0]).attr('type') !== 'file') return undefined;
             return [].slice.call(allEl[0].files) 
         },
 
@@ -697,6 +698,24 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
 
         parent(n){
             return domMaster(parent(allEl[0], n));
+        },
+
+        /**
+         * Will return path of the current element in the DOM tree from the element itself to html
+         * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-2#path
+         * @returns {[HTMLElement]}
+         */
+
+        path(){
+            let el = allEl[0];
+            if(!el) return [];
+            let _path = [el];
+            let currentParent = el.parentElement;
+            while(true){
+                if(!currentParent) return _path;
+                _path.push(currentParent);
+                currentParent = currentParent.parentElement;
+            }
         },
 
         /**
@@ -1007,5 +1026,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
 }
 
 domMaster.extends = {};
+
+globalThis.domMaster = domMaster;
 
 export default domMaster;
