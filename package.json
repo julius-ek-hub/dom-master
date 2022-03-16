@@ -1,6 +1,6 @@
 {
   "name": "dom-master",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "DOM master is a library for manipulating the DOM, get 1 line of code do what 15 lines of vanilla js will do. 70+ methods to make your web developement life better.",
   "main": "dist/dom-master.esm",
   "homepage": "https://www.247-dev.com/projects/dom-master",
