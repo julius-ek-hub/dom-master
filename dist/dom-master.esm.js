@@ -660,8 +660,8 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          * @see https://www.247-dev.com/projects/dom-master/doc/methods/page-3#value
          */
 
-        value(v){
-            if (typeof v != undefined) {
+         value(v){
+            if (typeof v !== 'undefined') {
                 allEl.map(el => el.value = v);
                 return domMaster(allEl);
             } else
