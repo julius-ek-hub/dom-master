@@ -661,7 +661,7 @@ const domMaster = (Element_or_selector_or_Tag_or_Window_or_Document) => {
          */
 
         value(v){
-            if (_primitive(v, null)) {
+            if (typeof v != undefined) {
                 allEl.map(el => el.value = v);
                 return domMaster(allEl);
             } else
